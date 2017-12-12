@@ -1,0 +1,5 @@
+export default Object.freeze({
+    INITIALIZE:            'INITIALIZE',
+    START_FETCHING_MOVIES: 'START_FETCHING_MOVIES',
+    STOP_FETCHING_MOVIES:  'STOP_FETCHING_MOVIES'
+});

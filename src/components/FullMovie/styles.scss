@@ -1,0 +1,55 @@
+@import '../../theme/palette';
+
+.fullmovie {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    width: 60%;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid darken($paletteColor2, 15%);
+    border-radius: 3px;
+    background-color: lighten($bg-color, 40%);
+
+    img {
+        width: auto;
+        height: 300px;
+        border: 1px solid $paletteColor5;
+    }
+    div {
+        padding-left: 20px;
+    }
+    .title {
+        color: $paletteColor8;
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .overview {
+        margin-top: 16px;
+        font-size: 18px;
+        color: $paletteColor9;
+        margin-left: 0;
+    }
+
+    .cross {
+        content: '';
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 10px;
+        height: 10px;
+        background-image: url('../../theme/assets/cross.png');
+        background-repeat: no-repeat;
+        cursor: pointer;
+
+        &:hover {
+            background-position: -13px 0;
+        }
+    }
+    a {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+}

@@ -2,12 +2,11 @@
 
 .navigation {
     display: flex;
-    position: fixed;
-    z-index: 1;
+    position: absolute;
     top: 0;
+    width: 100%;
     align-items: center;
     justify-content: center;
-    width: 100%;
     height: 42px;
     border-bottom: $paletteColor12;
     background-color: $paletteColor6;
@@ -30,7 +29,7 @@
         img {
             width: 24px;
             height: 24px;
-            margin-right: 5px;
+            padding-right: 5px;
             border: 1px solid $rgbaColor1;
             border-radius: 50%;
         }

@@ -7,11 +7,11 @@ import Styles from './styles.scss';
 
 export default class Catcher extends Component {
     static propTypes = {
-        children: PropTypes.object.isRequired,
+        children: PropTypes.object.isRequired
     };
 
     state = {
-        error: false,
+        error: false
     };
 
     componentDidCatch (error, stack) {
@@ -19,7 +19,7 @@ export default class Catcher extends Component {
         console.log('STACKTRACE:', stack.componentStack);
 
         this.setState(() => ({
-            error: true,
+            error: true
         }));
     }
 

@@ -12,7 +12,7 @@ const Spinner = ({ spin }) =>
     spin ? createPortal(<section className = { Styles.spinner } />, portal) : null;
 
 Spinner.propTypes = {
-    spin: bool.isRequired,
+    spin: bool.isRequired
 };
 
 export default Spinner;
