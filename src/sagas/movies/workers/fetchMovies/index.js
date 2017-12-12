@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 //Instruments
 import uiActions from 'actions/ui';
 import moviesActions from 'actions/movies';
-import { apiPath, apiKey } from 'instruments/api';
+import { path, apiKey } from 'instruments/api';
 import movie from 'schema/movies';
 import { normalize } from 'normalizr';
 
@@ -11,7 +11,7 @@ export function* fetchMoviesWorker ({ payload: type }) {
     try {
         yield put(uiActions.startFetchingMovies());
 
-        const response = yield call(fetch, `${apiPath}${type}${apiKey}`, {
+        const response = yield call(fetch, `${path}${type}${apiKey}`, {
             method:  'GET'
         });
         const { data: movies, message } = yield call([response, response.json]);

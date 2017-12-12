@@ -12,7 +12,6 @@ import Styles from './styles';
 import { bindActionCreators } from 'redux';
 import pages from 'routes/pages';
 
-import authActions from 'actions/auth';
 
 export default class Navigation extends Component {
     static propTypes = {

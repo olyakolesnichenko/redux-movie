@@ -6,8 +6,8 @@ import { Switch, Route } from 'react-router-dom';
 import Styles from './styles.scss';
 import PropTypes from 'prop-types';
 
-import Movie from '../../components/Movie';
-import Header from '../../components/Header';
+//import Movie from '../../components/Movie';
+//import Header from '../../components/Header';
 import FullMovie from '../../components/FullMovie';
 
 import { CSSTransition, Transition, TransitionGroup } from 'react-transition-group';

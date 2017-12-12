@@ -7,7 +7,6 @@ import { Switch, withRouter } from 'react-router';
 
 //Instruments
 import pages from 'routes/pages';
-import authActions from 'actions/auth';
 import moviesActions from 'actions/movies';
 import uiActions from 'actions/ui';
 // //Routing
