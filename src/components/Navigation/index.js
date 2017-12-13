@@ -22,13 +22,13 @@ export default class Navigation extends Component {
         //const { authenticated, profile: { firstName, avatar }} = this.props;
 
         return [
-                <NavLink activeClassName = { Styles.active } key = '0' to = { pages.upcoming }>
+                <NavLink activeClassName = { Styles.active } key = '0' to = { `/movies${pages.upcoming}` }>
                    Upcoming
                 </NavLink>,
-                <NavLink activeClassName = { Styles.active } key = '1' to = { pages.popular }>
+                <NavLink activeClassName = { Styles.active } key = '1' to = { `/movies${pages.popular}` }>
                     Popular
                 </NavLink>,
-                <NavLink activeClassName = { Styles.active } key = '2' to = { pages.new }>
+                <NavLink activeClassName = { Styles.active } key = '2' to = { `/movies${pages.new}` }>
                     New
                 </NavLink>,
                 <NavLink activeClassName = { Styles.active } key = '3' to = { pages['my-list'] }>

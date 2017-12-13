@@ -12,8 +12,8 @@ export default class Public extends Component {
     render () {
         return (
             <Switch>
-                <Route exact component = { Movies } path = { pages.upcoming } />
-                <Redirect to = { pages.upcoming } />
+                <Route exact component = { Movies } path = { `/movies/:filter` } />
+                <Redirect to = { `/movies${pages.upcoming}` } />
             </Switch>
         );
     }

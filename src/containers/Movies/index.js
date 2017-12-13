@@ -15,18 +15,26 @@ import Catcher from 'components/Catcher';
 
 class Movies extends Component {
     static propTypes = {
-        moviesFetching: PropTypes.bool.isRequired
+        moviesFetching: PropTypes.bool.isRequired,
+        match:          PropTypes.object.isRequired
     };
     constructor () {
         super();
         this.getMovies = ::this._getMovies;
     }
-    componentWillMount () {
-        this.getMovies();
+    componentWillReciveProps (nextProps) {
+        const type = this.props.match.params.filter;
+
+        if (nextProps.match.params.filter !== type){
+            this.getMovies();
+        }
+
     }
 
     _getMovies () {
-        this.props.actions.fetchMovies();
+        const type = this.props.match.params.filter;
+
+        this.props.actions.fetchMovies(type);
     }
 
     render () {

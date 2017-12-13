@@ -35,9 +35,9 @@ class SingleMovie extends Component {
         const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie } />);
         const result = movies.length > 0 ? (
 
-            <Spinner key = '0' spin = { moviesFetching } />,
-            <Navigation key = '1' />,
-            <Catcher key = '2'>
+            <Catcher key = '0'>
+                <Spinner key = '1' spin = { moviesFetching } />,
+                <Navigation key = '2' />,
                 { moviesList }
             </Catcher>
         ) : (
