@@ -19,20 +19,16 @@ export function* addMovieWorker ({ payload: id }) {
         }
 
         const isExist = movies.some((elem) => elem.id === id);
-        // if (!isExist) {
-        //     this._getMovieInfo(id).then((movie) => {
-        //         movies.push(movie);
-        //         localStorage.setItem('myMoviesList', JSON.stringify(movies));
-        //
-        //        // this.updateMyListIds();
-        //     });
-        // }
+        if (!isExist) {JSON.stringify
+            this._getMovieInfo(id).then((movie) => {
+                movies.push(movie);
+               localStorage.setItem('myMoviesList', (movies));
 
+               // this.updateMyListIds();
+            });
+        }
 
-        const normalizedMovies = normalize(movies, movie);
-        console.log('normalizedMovies', normalizedMovies);
-
-        yield put(moviesActions.addMovieSuccess(normalizedMovies));
+        yield put(moviesActions.addMovieSuccess(movies));
 
     } catch ({ message }) {
         yield put(moviesActions.addMovieFail(message));

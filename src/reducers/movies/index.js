@@ -13,7 +13,9 @@ export default (state = initialState, { type, payload }) => {
         case types.FETCH_MOVIES_SUCCESS: {
             return state.merge({ data: payload });
         }
-
+        case types.FETCH_MY_LIST_SUCCESS: {
+            return state.merge({ data: payload });
+        }
         default:
             return state;
     }

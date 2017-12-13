@@ -17,9 +17,9 @@ export function* fetchMoviesWorker ({ payload: type = 'upcoming' }) {
         const { results: movies } = yield call([response, response.json]);
 
         if (response.status !== 200) {
-            throw new Error('Can not fetch posts');
+            throw new Error('Can not fetch movies');
         }
-
+        // localStorage.setItem('myMoviesList', JSON.stringify(movies));
         yield put(moviesActions.fetchMoviesSuccess(movies));
 
     } catch ({ message }) {
