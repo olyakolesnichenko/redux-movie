@@ -1,4 +1,7 @@
-//Core
-import { createSelector } from 'reselect';
+// Core
+import { createSelectorWithDependencies as createSelector } from 'reselect-tools';
 
-export const getProfile = createSelector((state) => state.profile, (profile) => profile.toJS());
+export const getProfile = createSelector(
+    (profile) => profile,
+    (profile) => profile.toJS()
+);

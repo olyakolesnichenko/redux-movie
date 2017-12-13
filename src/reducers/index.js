@@ -1,12 +1,13 @@
-//Core
+// Core
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
-//Instruments
-import movies from './movies';
+
+// Instruments
 import ui from './ui';
+import movies from './movies';
 
 export default combineReducers({
-    movies,
     router,
-    ui
+    ui,
+    movies
 });

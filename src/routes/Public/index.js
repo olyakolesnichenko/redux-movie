@@ -6,18 +6,13 @@ import { Switch, Route, Redirect } from 'react-router';
 import pages from 'routes/pages';
 
 //Components
-import Wrapper from 'containers/Wrapper';
-import FullMovie from 'containers/FullMovie';
+import Movies from 'containers/Movies';
 
 export default class Public extends Component {
     render () {
         return (
             <Switch>
-                <Route exact component = { Wrapper } path = { pages.upcoming } />
-                <Route exact component = { Wrapper } path = { pages.popular } />
-                <Route exact component = { Wrapper } path = { pages.new } />
-                <Route exact component = { Wrapper } path = { pages['my-list'] } />
-                <Route exact component = { FullMovie } path = { pages['full-movie'] } />
+                <Route exact component = { Movies } path = { pages.upcoming } />
                 <Redirect to = { pages.upcoming } />
             </Switch>
         );

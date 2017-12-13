@@ -1,11 +1,8 @@
 // Coret
 import React, { Component } from 'react';
-import { bool, object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { getProfile } from 'selectors/profile';
-import { getAuthenticated } from 'selectors/auth';
 // Instruments
 import Styles from './styles';
 
@@ -14,9 +11,6 @@ import pages from 'routes/pages';
 
 
 export default class Navigation extends Component {
-    static propTypes = {
-    };
-
 
     constructor () {
         super();
@@ -37,7 +31,7 @@ export default class Navigation extends Component {
                 <NavLink activeClassName = { Styles.active } key = '2' to = { pages.new }>
                     New
                 </NavLink>,
-                <NavLink activeClassName = { Styles.active } key = '3' to = { pages.myList }>
+                <NavLink activeClassName = { Styles.active } key = '3' to = { pages['my-list'] }>
                     MyList
                 </NavLink>
             ];
