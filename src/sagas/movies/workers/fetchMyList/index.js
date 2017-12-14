@@ -9,15 +9,12 @@ export function* fetchMyListWorker () {
     try {
         yield put(uiActions.startFetchingMovies());
 
-        const response = yield call(localStorage.getItem('myMoviesList'));
-        console.log('response', response);
-        const { movies } = yield call(JSON.parse(response));
-
+        const response = localStorage.getItem('myMoviesList');
         if (!response) {
 
             throw new Error('movies not found');
         }
-        console.log('movies', movies);
+        const movies = JSON.parse(response);
 
         yield put(moviesActions.fetchMyListSuccess(movies));
 

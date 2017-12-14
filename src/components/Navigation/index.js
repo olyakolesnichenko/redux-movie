@@ -31,7 +31,7 @@ export default class Navigation extends Component {
                 <NavLink activeClassName = { Styles.active } key = '2' to = { `/movies${pages.new}` }>
                     New
                 </NavLink>,
-                <NavLink activeClassName = { Styles.active } key = '3' to = { pages['my-list'] }>
+                <NavLink activeClassName = { Styles.active } key = '3' to = { `/movies${pages['my-list']}` } >
                     MyList
                 </NavLink>
             ];

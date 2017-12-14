@@ -22,6 +22,7 @@ class Movies extends Component {
     constructor () {
         super();
         this.getMovies = ::this._getMovies;
+        this.getMovieInfo = ::this._getMovieInfo;
     }
     componentWillMount () {
         this.getMovies();
@@ -34,21 +35,30 @@ class Movies extends Component {
         }
 
     }
+    _getMovieInfo () {
+        const id = this.props.match.params.filter;
 
+        this.props.actions.fetchFullMovie(id);
+
+    }
     _getMovies () {
         const type = this.props.match.params.filter;
 
-        if (type !== 'my-list') {
-            this.props.actions.fetchMovies(type);
-        } else {
+        if (type === 'my-list') {
             this.props.actions.fetchMyList();
+
+        } if (type === 'new') {
+            this.props.actions.fetchMovies('now_playing');
+        } else {
+            this.props.actions.fetchMovies(type);
         }
+
     }
 
     render () {
         const movies = this.props.movies.data;
         const { moviesFetching } = this.props;
-        const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie } />);
+        const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie } getMovieInfo = { this.getMovieInfo } />);
         const result = movies.length > 0 ? (
 
 

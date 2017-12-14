@@ -1,7 +1,7 @@
 // Core
 import React, { Component } from 'react';
-import { string, object, number, bool } from 'prop-types';
-//import PropTypes from 'prop-types';
+//import { string, object, number, bool } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -12,11 +12,18 @@ import Styles from './styles.scss';
 
 class Movie extends Component {
     static propTypes = {
-        actions:        object.isRequired,
-        id:             number.isRequired,
-        moviesFetching: bool.isRequired,
-        overview:       string.isRequired,
-        title:          string.isRequired,
+        actions:          PropTypes.object.isRequired,
+        moviesFetching:   PropTypes.bool.isRequired,
+        overview:         PropTypes.string.isRequired,
+        title:            PropTypes.string.isRequired,
+        addToMyList:      PropTypes.func.isRequired,
+        getMovieInfo:     PropTypes.func.isRequired,
+        id:               PropTypes.number.isRequired,
+        isInMyList:       PropTypes.bool.isRequired,
+        myList:           PropTypes.bool.isRequired,
+        posterPath:       PropTypes.string.isRequired,
+        removeFromMyList: PropTypes.func.isRequired,
+        voteAverage:      PropTypes.number.isRequired
     };
     constructor () {
         super();
@@ -38,6 +45,13 @@ class Movie extends Component {
 
         this.props.actions.deleteMovie(id);
     }
+    // _getCross () {
+    //     // const { userId, author: authorId } = this.props;
+    //
+    //     return userId === authorId ? (
+    //         <span className = { Styles.cross } onClick = { this.deletePost } />
+    //     ) : null;
+    // }
     render () {
         const {poster_path: posterPath, title, overview, voteAverage} = this.props; // eslint-disable-line
         const poster = posterPath ?
