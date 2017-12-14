@@ -16,14 +16,14 @@ class Movie extends Component {
         moviesFetching:   PropTypes.bool.isRequired,
         overview:         PropTypes.string.isRequired,
         title:            PropTypes.string.isRequired,
-        addToMyList:      PropTypes.func.isRequired,
+        //addToMyList:      PropTypes.func.isRequired,
         getMovieInfo:     PropTypes.func.isRequired,
         id:               PropTypes.number.isRequired,
-        isInMyList:       PropTypes.bool.isRequired,
-        myList:           PropTypes.bool.isRequired,
-        posterPath:       PropTypes.string.isRequired,
-        removeFromMyList: PropTypes.func.isRequired,
-        voteAverage:      PropTypes.number.isRequired
+        //isInMyList:       PropTypes.bool.isRequired,
+        //myList:           PropTypes.bool.isRequired,
+        //posterPath:       PropTypes.string.isRequired,
+        //removeFromMyList: PropTypes.func.isRequired,
+        //voteAverage:      PropTypes.number.isRequired
     };
     constructor () {
         super();
