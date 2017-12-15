@@ -5,13 +5,20 @@ import { takeEvery } from 'redux-saga/effects';
 import types from 'actions/movies/types';
 
 import { fetchMoviesWorker } from './workers/fetchMovies';
+import { fetchFullMovieWorker } from './workers/fetchFullMovie';
 import { addMovieWorker } from './workers/addMovie';
 import { deleteMovieWorker } from './workers/deleteMovie';
 import { fetchMyListWorker } from './workers/fetchMyList';
+import { updateMyListIdsWorker } from './workers/updateMyListIds';
+import { isMyListWorker } from './workers/isMyList';
+import { isExistWorker } from './workers/isExist';
 
 export default Object.freeze({
     * fetchMoviesWatcher () {
         yield takeEvery(types.FETCH_MOVIES, fetchMoviesWorker);
+    },
+    * fetchFullMovieWatcher () {
+        yield takeEvery(types.FETCH_FULL_MOVIE, fetchFullMovieWorker);
     },
     * addMovieWatcher () {
         yield takeEvery(types.ADD_MOVIE, addMovieWorker);
@@ -21,5 +28,14 @@ export default Object.freeze({
     },
     * fetchMyListWatcher () {
         yield takeEvery(types.FETCH_MY_LIST, fetchMyListWorker);
-    }
+    },
+    * updateMyListIdsWatcher () {
+        yield takeEvery(types.UPDATE_MY_LIST_IDS, updateMyListIdsWorker);
+    },
+    * isMyListWatcher () {
+        yield takeEvery(types.IS_MY_LIST, isMyListWorker);
+    },
+    * isExistWatcher () {
+        yield takeEvery(types.IS_EXIST, isExistWorker);
+    },
 });

@@ -4,61 +4,96 @@ import types from './types';
 export default Object.freeze({
     fetchMovies: (type) => ({
         type:    types.FETCH_MOVIES,
-        payload: type
+        payload: type,
     }),
     fetchMoviesSuccess: (movies) => ({
         type:    types.FETCH_MOVIES_SUCCESS,
-        payload: movies
+        payload: movies,
     }),
     fetchMoviesFail: (message) => ({
         type:    types.FETCH_MOVIES_FAIL,
-        payload: message
+        payload: message,
     }),
     fetchFullMovie: (id) => ({
         type:    types.FETCH_FULL_MOVIE,
-        payload: id
+        payload: id,
     }),
     fetchFullMovieSuccess: (movie) => ({
         type:    types.FETCH_FULL_MOVIE_SUCCESS,
-        payload: movie
+        payload: movie,
     }),
     fetchFullMovieFail: (message) => ({
         type:    types.FETCH_FULL_MOVIE_FAIL,
-        payload: message
+        payload: message,
     }),
     addMovie: (id) => ({
         type:    types.ADD_MOVIE,
-        payload: id
+        payload: id,
     }),
     addMovieSuccess: (movie) => ({
         type:    types.ADD_MOVIE_SUCCESS,
-        payload: movie
+        payload: movie,
     }),
     addMovieFail: (message) => ({
         type:    types.ADD_MOVIE_FAIL,
-        payload: message
+        payload: message,
     }),
     deleteMovie: (id) => ({
         type:    types.DELETE_MOVIE,
-        payload: id
+        payload: id,
     }),
-    deleteMovieSuccess: (id) => ({
+    deleteMovieSuccess: (movies) => ({
         type:    types.DELETE_MOVIE_SUCCESS,
-        payload: id
+        payload: movies,
     }),
     deleteMovieFail: (message) => ({
         type:    types.DELETE_MOVIE_FAIL,
-        payload: message
+        payload: message,
     }),
     fetchMyList: () => ({
-        type: types.FETCH_MY_LIST
+        type: types.FETCH_MY_LIST,
     }),
     fetchMyListSuccess: (movies) => ({
         type:    types.FETCH_MY_LIST_SUCCESS,
-        payload: movies
+        payload: movies,
     }),
     fetchMyListFail: (message) => ({
         type:    types.FETCH_MY_LIST_FAIL,
-        payload: message
-    })
+        payload: message,
+    }),
+    updateMyListIds: () => ({
+        type: types.UPDATE_MY_LIST_IDS,
+    }),
+    updateMyListIdsSuccess: (ids) => ({
+        type:    types.UPDATE_MY_LIST_IDS_SUCCESS,
+        payload: ids,
+    }),
+    updateMyListIdsFail: (message) => ({
+        type:    types.UPDATE_MY_LIST_IDS_FAIL,
+        payload: message,
+    }),
+    isMyList: (flag) => ({
+        type:    types.IS_MY_LIST,
+        payload: flag,
+    }),
+    isMyListSuccess: (flag) => ({
+        type:    types.IS_MY_LIST_SUCCESS,
+        payload: flag,
+    }),
+    isMyListFail: (message) => ({
+        type:    types.IS_MY_LIST_FAIL,
+        payload: message,
+    }),
+    isExist: (id) => ({
+        type:    types.IS_EXIST,
+        payload: id,
+    }),
+    isExistSuccess: (flag) => ({
+        type:    types.IS_EXIST_SUCCESS,
+        payload: flag,
+    }),
+    isExistFail: (message) => ({
+        type:    types.IS_EXIST_FAIL,
+        payload: message,
+    }),
 });

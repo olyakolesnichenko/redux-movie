@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,23 +16,30 @@ class Movies extends Component {
     static propTypes = {
         actions:        PropTypes.object.isRequired,
         match:          PropTypes.object.isRequired,
+        movies:         PropTypes.object.isRequired,
         moviesFetching: PropTypes.bool.isRequired,
     };
     constructor () {
         super();
+        this.addToMyList = ::this._addToMyList;
         this.getMovies = ::this._getMovies;
         this.getMovieInfo = ::this._getMovieInfo;
+        this.removeFromMyList = ::this._removeFromMyList;
+        this.updateMyListIds = ::this._updateMyListIds;
     }
     componentWillMount () {
-        this.getMovies();
+        const type = this.props.match.params.filter;
+        this.updateMyListIds();
+        this.getMovies(type);
     }
     componentWillReceiveProps (nextProps) {
         const type = this.props.match.params.filter;
 
         if (nextProps.match.params.filter !== type) {
-            this.getMovies();
-        }
+            const filter = nextProps.match.params.filter;
 
+            this.getMovies(filter);
+        }
     }
     _getMovieInfo () {
         const id = this.props.match.params.filter;
@@ -41,20 +47,34 @@ class Movies extends Component {
         this.props.actions.fetchFullMovie(id);
 
     }
-    _getMovies () {
-        const type = this.props.match.params.filter;
-
+    _getMovies (type) {
         if (type === 'my-list') {
             this.props.actions.fetchMyList();
-
-        } if (type === 'new') {
+            this.props.actions.isMyList(true);
+        } else if (type === 'new') {
             this.props.actions.fetchMovies('now_playing');
+            this.props.actions.isMyList(false);
         } else {
             this.props.actions.fetchMovies(type);
+            this.props.actions.isMyList(false);
         }
 
     }
+    _removeFromMyList (id) {
+        this.props.actions.deleteMovie(id);
+        this.props.actions.updateMyListIds();
+    }
+    _addToMyList (id) {
+        if (this.props.actions.isExist(id)) {
+            const movie = this.props.actions.fetchFullMovie(id);
 
+            this.props.actions.addMovie(movie);
+            this.props.actions.updateMyListIds();
+        }
+    }
+    _updateMyListIds () {
+        this.props.actions.updateMyListIds();
+    }
     render () {
         const movies = this.props.movies.data;
         const { moviesFetching } = this.props;
@@ -77,11 +97,11 @@ class Movies extends Component {
 
 const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
-    movies:         movies.toJS()
+    movies:         movies.toJS(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(moviesActions, dispatch)
+    actions: bindActionCreators(moviesActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movies);

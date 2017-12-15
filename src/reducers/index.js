@@ -9,5 +9,5 @@ import movies from './movies';
 export default combineReducers({
     router,
     ui,
-    movies
+    movies,
 });

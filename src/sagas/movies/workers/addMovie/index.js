@@ -3,10 +3,8 @@ import { call, put } from 'redux-saga/effects';
 //Instruments
 import uiActions from 'actions/ui';
 import moviesActions from 'actions/movies';
-import movie from 'schema/movies';
-import { normalize } from 'normalizr';
 
-export function* addMovieWorker ({ payload: id }) {
+export function* addMovieWorker ({ payload: movie }) {
     try {
         yield put(uiActions.startFetchingMovies());
 
@@ -18,15 +16,9 @@ export function* addMovieWorker ({ payload: id }) {
             throw new Error('movies not found');
         }
 
-        const isExist = movies.some((elem) => elem.id === id);
-        if (!isExist) {JSON.stringify
-            this._getMovieInfo(id).then((movie) => {
-                movies.push(movie);
-               localStorage.setItem('myMoviesList', (movies));
+        movies.push(movie);
+        localStorage.setItem('myMoviesList', movies);
 
-               // this.updateMyListIds();
-            });
-        }
 
         yield put(moviesActions.addMovieSuccess(movies));
 

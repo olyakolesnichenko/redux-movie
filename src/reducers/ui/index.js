@@ -5,8 +5,8 @@ import { Map } from 'immutable';
 import types from 'actions/ui/types';
 
 const initialState = Map({
-    initialized:     false,
-    moviesFetching:  false
+    initialized:    false,
+    moviesFetching: false,
 });
 
 export default (state = initialState, action) => {

@@ -80,10 +80,9 @@ class Movie extends Component {
 // };
 
 
-
 const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
-    movies:         movies.toJS()
+    movies:         movies.toJS(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

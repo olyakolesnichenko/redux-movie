@@ -8,7 +8,11 @@ export function* saga () {
     yield all([
         movies.addMovieWatcher(),
         movies.deleteMovieWatcher(),
+        movies.fetchFullMovieWatcher(),
         movies.fetchMoviesWatcher(),
-        movies.fetchMyListWatcher()
+        movies.fetchMyListWatcher(),
+        movies.updateMyListIdsWatcher(),
+        movies.isMyListWatcher(),
+        movies.isExistWatcher()
     ]);
 }

@@ -7,7 +7,7 @@ import Styles from './styles.scss';
 
 export default class Catcher extends Component {
     static propTypes = {
-        children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
+        children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
     };
 
     state = {
