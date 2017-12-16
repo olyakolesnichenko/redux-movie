@@ -7,7 +7,8 @@ import types from 'actions/movies/types';
 const initialState = Map({
     data:        [],
     inMyListIds: [],
-    myList:      true,
+    isMyList:    false,
+    isExist:     false,
 });
 
 export default (state = initialState, { type, payload }) => {
@@ -28,10 +29,13 @@ export default (state = initialState, { type, payload }) => {
             return state.merge({ myList: payload });
         }
         case types.IS_EXIST_SUCCESS: {
+            return state.merge({ isExist: payload });
+        }
+        case types.ADD_MOVIE_SUCCESS: {
             return state; ////????
         }
         case types.DELETE_MOVIE_SUCCESS: {
-            const newList = state.myList ? payload : state.data;
+            const newList = state.isMyList ? payload : state.data;
 
             return state.merge({ data: newList }); ///??????
         }

@@ -67,11 +67,11 @@ class Movies extends Component {
         this.props.actions.updateMyListIds();
     }
     _addToMyList (id) {
-        if (this.props.actions.isExist(id)) {
+        if (!this.props.actions.isExist(id)) {
             const movie = this.props.actions.fetchFullMovie(id);
-
-            this.props.actions.addMovie(movie);
-            this.props.actions.updateMyListIds();
+            console.log('_addToMyList_Movies', movie);
+            // this.props.actions.addMovie(movie);
+            // this.props.actions.updateMyListIds();
         }
     }
     _updateMyListIds () {

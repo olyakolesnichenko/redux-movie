@@ -8,16 +8,16 @@ export function* addMovieWorker ({ payload: movie }) {
     try {
         yield put(uiActions.startFetchingMovies());
 
-        const response = yield call(localStorage.getItem('myMoviesList'));
-
-        const { data: movies } = yield call([response, response.json]);
-        if (!response) {
+        const response = localStorage.getItem('myMoviesList');
+        console.log('need to be a full movie1', movie);
+        if (!response || !movie ) {
 
             throw new Error('movies not found');
         }
-
-        movies.push(movie);
-        localStorage.setItem('myMoviesList', movies);
+        const  movies = JSON.parse(response);
+console.log('need to be a full movie2', movie);
+        // movies.push(movie);
+        // localStorage.setItem('myMoviesList', JSON.stringify(movies));
 
 
         yield put(moviesActions.addMovieSuccess(movies));

@@ -8,13 +8,14 @@ export function* deleteMovieWorker ({ payload: id }) {
     try {
         yield put(uiActions.startFetchingMovies());
 
-        const response = yield call(localStorage.getItem('myMoviesList'));
+        const response = ocalStorage.getItem('myMoviesList');
 
-        const { data: movies } = yield call([response, response.json]);
+
         if (!response) {
 
             throw new Error('movies not found');
         }
+        const movies = JSON.parse(response);
         const newList = movies.filter((movieItem) => movieItem.id !== id);
 
         localStorage.setItem('movies', JSON.stringify(newList));
