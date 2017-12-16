@@ -7,8 +7,8 @@ import moviesActions from 'actions/movies';
 export function* isMyListWorker ({ payload: flag }) {
 
     try {
-        if (flag) {
-            throw new Error('flag not found');
+        if (flag === undefined) {
+            throw new Error('flag was  set');
         }
         yield put(moviesActions.isMyListSuccess(flag));
 

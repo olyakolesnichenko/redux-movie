@@ -15,6 +15,8 @@ import Catcher from 'components/Catcher';
 class Movies extends Component {
     static propTypes = {
         actions:        PropTypes.object.isRequired,
+        isExist:        PropTypes.bool.isRequired,
+        isMyList:       PropTypes.bool.isRequired,
         match:          PropTypes.object.isRequired,
         movies:         PropTypes.object.isRequired,
         moviesFetching: PropTypes.bool.isRequired,
@@ -77,8 +79,12 @@ class Movies extends Component {
     }
     render () {
         const movies = this.props.movies.data;
-        const { moviesFetching } = this.props;
-        const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie } getMovieInfo = { this.getMovieInfo } />);
+        const { moviesFetching, isExist, isMyList } = this.props;
+        const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie }
+                                                        getMovieInfo = { this.getMovieInfo }
+                                                        isExist = { isExist }
+                                                        isMyList = { isMyList }
+                                                    />);
         const result = movies.length > 0 ? (
 
 
@@ -98,6 +104,8 @@ class Movies extends Component {
 const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
     movies:         movies.toJS(),
+    isExist:        movies.get('isExist'),
+    isMyList:       movies.get('isMyList'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
