@@ -98,8 +98,8 @@ class Movies extends Component {
         } = this.props;
         console.log(myMoviesList);
         const moviesList = movies.map((movie) => {
-            //const inList = myMoviesList.some((myMovie) => myMovie.id === movie.id); // раскоментировать когда будет готов экшн получения данных из локального хранилища
-            const inList = false;
+            //const inList = myMoviesList.some((myMovie) => myMovie.id === movie.id);
+             const inList = false;
 
             return (
                 <Movie key = { movie.id } { ...movie }
