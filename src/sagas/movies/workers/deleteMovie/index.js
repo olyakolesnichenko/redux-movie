@@ -1,5 +1,5 @@
 //core
-import { call, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 //Instruments
 import uiActions from 'actions/ui';
 import moviesActions from 'actions/movies';
@@ -8,8 +8,7 @@ export function* deleteMovieWorker ({ payload: id }) {
     try {
         yield put(uiActions.startFetchingMovies());
 
-        const response = ocalStorage.getItem('myMoviesList');
-
+        const response = localStorage.getItem('myMoviesList');
 
         if (!response) {
 

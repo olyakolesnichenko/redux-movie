@@ -20,6 +20,7 @@ class Movies extends Component {
         match:          PropTypes.object.isRequired,
         movies:         PropTypes.object.isRequired,
         moviesFetching: PropTypes.bool.isRequired,
+        myMoviesList:   PropTypes.object.isRequired,
     };
     constructor () {
         super();
@@ -28,9 +29,14 @@ class Movies extends Component {
         this.getMovieInfo = ::this._getMovieInfo;
         this.removeFromMyList = ::this._removeFromMyList;
         this.updateMyListIds = ::this._updateMyListIds;
+        this.addToMyList = ::this._addToMyList;
+        this.getMovieInfo = ::this._getMovieInfo;
+        this.removeFromMyList = ::this._removeFromMyList;
     }
     componentWillMount () {
         const type = this.props.match.params.filter;
+
+        this.props.actions.fetchMyList();
         this.updateMyListIds();
         this.getMovies(type);
     }
@@ -67,37 +73,52 @@ class Movies extends Component {
         this.props.actions.updateMyListIds();
     }
     _addToMyList (id) {
-        if (!this.props.actions.isExist(id)) {
-            const movie = this.props.actions.fetchFullMovie(id);
-            console.log('_addToMyList_Movies', movie);
-            // this.props.actions.addMovie(movie);
-            // this.props.actions.updateMyListIds();
-        }
+        this.props.actions.addMovie(id);
+        // const { id, isExist, fullMovie } = this.props;
+        // //this.props.actions.isExist(id);
+        //
+        // if (!isExist) {
+        //     this.props.actions.fetchFullMovie(id);
+        //     if (fullMovie) {
+        //         this.props.actions.addMovie(fullMovie);
+        //         this.props.actions.updateMyListIds();
+        //     }
+        // }
     }
     _updateMyListIds () {
         this.props.actions.updateMyListIds();
     }
     render () {
-        const movies = this.props.movies.data;
-        const { moviesFetching, isExist, isMyList } = this.props;
-        const moviesList = movies.map((movie) => <Movie key = { movie.id } { ...movie }
-                                                        getMovieInfo = { this.getMovieInfo }
-                                                        isExist = { isExist }
-                                                        isMyList = { isMyList }
-                                                    />);
-        const result = movies.length > 0 ? (
+        const {
+            moviesFetching,
+            isExist,
+            isMyList,
+            movies: { data: movies },
+            myMoviesList,
+        } = this.props;
+        console.log(myMoviesList);
+        const moviesList = movies.map((movie) => {
+            //const inList = myMoviesList.some((myMovie) => myMovie.id === movie.id); // раскоментировать когда будет готов экшн получения данных из локального хранилища
+            const inList = false;
 
-
-            <Catcher key = '0'>
-                <Spinner key = '1' spin = { moviesFetching } />,
-                <Navigation key = '2' />,
-                { moviesList }
+            return (
+                <Movie key = { movie.id } { ...movie }
+                       getMovieInfo = { this.getMovieInfo }
+                       isExist = { isExist }
+                       isMyList = { isMyList }
+                       inList = { inList }
+                       addToMyList = { this.addToMyList }
+                       removeFromMyList = { this.removeFromMyList }
+                />
+            );
+        });
+        return (
+            <Catcher>
+                <Spinner spin = { moviesFetching } />,
+                <Navigation />
+                { movies.length > 0 ? moviesList : <div> Loading... </div> }
             </Catcher>
-        ) : (
-            <div> Loading... </div>
         );
-
-        return result;
     }
 }
 
@@ -106,6 +127,8 @@ const mapStateToProps = ({ ui, movies }) => ({
     movies:         movies.toJS(),
     isExist:        movies.get('isExist'),
     isMyList:       movies.get('isMyList'),
+    fullMovie:      movies.get('fetchFullMovie'),
+    myMoviesList:   movies.get('fetchMyList'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

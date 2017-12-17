@@ -9,13 +9,15 @@ export function* isExistWorker ({ payload: id }) {
     try {
         const response = localStorage.getItem('myMoviesList');
 
-        if (!response) {
+        let isExist= false;
 
-            throw new Error('list not found');
+        if (response) {
+            const movies = JSON.parse(response);
+
+            isExist = movies.some((elem) => elem.id === id);
+        } else {
+            localStorage.setItem('myMoviesList', JSON.stringify([]));
         }
-        const movies = JSON.parse(response);
-        const isExist = movies.some((elem) => elem.id === id);
-
         yield put(moviesActions.isMyListSuccess(isExist));
 
     } catch ({ message }) {
