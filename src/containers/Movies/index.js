@@ -17,7 +17,7 @@ import Styles from 'components/Movie/styles.scss';
 class Movies extends Component {
     static propTypes = {
         actions:        PropTypes.object.isRequired,
-        isExist:        PropTypes.bool.isRequired,
+        fullMovie:      PropTypes.object.isRequired,
         isMyList:       PropTypes.bool.isRequired,
         match:          PropTypes.object.isRequired,
         movies:         PropTypes.object.isRequired,
@@ -75,7 +75,11 @@ class Movies extends Component {
         this.props.actions.updateMyListIds();
     }
     _addToMyList (id) {
-        this.props.actions.addMovie(id);
+        //this.props.actions.addMovie(id);
+        this.props.actions.fetchFullMovie(id);
+      //  const { fullMovie } = this.props;
+        console.log(this.state.fullMovie);
+
         // const { id, isExist, fullMovie } = this.props;
         // //this.props.actions.isExist(id);
         //
@@ -93,24 +97,23 @@ class Movies extends Component {
     render () {
         const {
             moviesFetching,
-            isExist,
             isMyList,
             movies: { data: movies },
             myMoviesList,
         } = this.props;
         console.log(myMoviesList);
+
         const moviesList = movies.map((movie) => {
-            //const inList = myMoviesList.some((myMovie) => myMovie.id === movie.id);
-            const inList = false;
+            const inList = myMoviesList ? myMoviesList.some((myMovie) => myMovie.id === movie.id) : false;
+            //const inList = false;
 
             return (
                 <Movie
+                    addToMyList = { this.addToMyList }
                     key = { movie.id } { ...movie }
                     getMovieInfo = { this.getMovieInfo }
-                    isExist = { isExist }
-                    isMyList = { isMyList }
                     inList = { inList }
-                    addToMyList = { this.addToMyList }
+                    isMyList = { isMyList }
                     removeFromMyList = { this.removeFromMyList }
                 />
             );
@@ -131,9 +134,8 @@ class Movies extends Component {
 const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
     movies:         movies.toJS(),
-    isExist:        movies.get('isExist'),
     isMyList:       movies.get('isMyList'),
-    fetchFullMovie: movies.get('fetchFullMovie'),
+    fullMovie:      movies.get('fetchFullMovie'),
     fetchMyList:    movies.get('fetchMyList'),
 });
 

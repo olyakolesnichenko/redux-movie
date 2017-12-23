@@ -9,7 +9,6 @@ const initialState = Map({
     fullMovie:   {},
     inMyListIds: [],
     isMyList:    false,
-    //isExist:     false,
 });
 
 export default (state = initialState, { type, payload }) => {
@@ -21,17 +20,14 @@ export default (state = initialState, { type, payload }) => {
             return state.merge({ data: payload });
         }
         case types.FETCH_FULL_MOVIE_SUCCESS: {
-            return state.merge({ fullMovie: payload });
+            return state.set({ fullMovie: payload });
         }
         case types.UPDATE_MY_LIST_IDS_SUCCESS: {
             return state.merge({ inMyListIds: payload });
         }
         case types.IS_MY_LIST_SUCCESS: {
-            return state.merge({ myList: payload });
+            return state.merge({ isMyList: payload });
         }
-        // case types.IS_EXIST_SUCCESS: {
-        //     return state.merge({ isExist: payload });
-        // }
         case types.ADD_MOVIE_SUCCESS: {
             return state; ////????
         }
