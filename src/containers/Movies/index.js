@@ -22,7 +22,7 @@ class Movies extends Component {
         match:          PropTypes.object.isRequired,
         movies:         PropTypes.object.isRequired,
         moviesFetching: PropTypes.bool.isRequired,
-        myMoviesList:   PropTypes.object.isRequired,
+        fetchMyList:    PropTypes.object.isRequired,
     };
     constructor () {
         super();
@@ -41,6 +41,7 @@ class Movies extends Component {
         this.props.actions.fetchMyList();
         this.updateMyListIds();
         this.getMovies(type);
+
     }
     componentWillReceiveProps (nextProps) {
         const type = this.props.match.params.filter;
@@ -78,7 +79,6 @@ class Movies extends Component {
         //this.props.actions.addMovie(id);
         this.props.actions.fetchFullMovie(id);
       //  const { fullMovie } = this.props;
-        console.log(this.state.fullMovie);
 
         // const { id, isExist, fullMovie } = this.props;
         // //this.props.actions.isExist(id);
@@ -99,19 +99,19 @@ class Movies extends Component {
             moviesFetching,
             isMyList,
             movies: { data: movies },
-            myMoviesList,
+            fetchMyList: { fetchMyList: myList },
         } = this.props;
-        console.log(myMoviesList);
+        console.log(myList);
 
         const moviesList = movies.map((movie) => {
-            const inList = myMoviesList ? myMoviesList.some((myMovie) => myMovie.id === movie.id) : false;
-            //const inList = false;
+            const inList = myList ? myList.some((myMovie) => myMovie.id === movie.id) : false;
 
             return (
                 <Movie
                     addToMyList = { this.addToMyList }
                     key = { movie.id } { ...movie }
                     getMovieInfo = { this.getMovieInfo }
+                    id = { movie.id }
                     inList = { inList }
                     isMyList = { isMyList }
                     removeFromMyList = { this.removeFromMyList }
@@ -136,7 +136,7 @@ const mapStateToProps = ({ ui, movies }) => ({
     movies:         movies.toJS(),
     isMyList:       movies.get('isMyList'),
     fullMovie:      movies.get('fetchFullMovie'),
-    fetchMyList:    movies.get('fetchMyList'),
+    fetchMyList:    movies.toJS(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

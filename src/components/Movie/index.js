@@ -1,6 +1,6 @@
 // Core
 import React, { Component } from 'react';
-//import { string, object, number, bool } from 'prop-types';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,8 +15,7 @@ class Movie extends Component {
         actions:          PropTypes.object.isRequired,
         addToMyList:      PropTypes.func.isRequired,
         getMovieInfo:     PropTypes.func.isRequired,
-        id:               PropTypes.number.isRequired,
-        //isExist:          PropTypes.bool.isRequired,
+        inList:           PropTypes.bool.isRequired,
         isMyList:         PropTypes.bool.isRequired,
         moviesFetching:   PropTypes.bool.isRequired,
         removeFromMyList: PropTypes.func.isRequired,
@@ -34,18 +33,18 @@ class Movie extends Component {
         ) : null;
     }
     _isAbleToAdd () {
-        const { isMyList, isExist } = this.props;
+        const { isMyList, inList } = this.props;
 
-        return !isMyList && !isExist ?
+        return !isMyList && !inList ?
             <span
                 className = { Styles.heart } onClick = { this.addToMyList }
-            /> : !isMyList && isExist ? <span
+            /> : !isMyList && inList ? <span
                 className = { Styles.heartRed } onClick = { this.removeFromMyList }
             /> : null;
     }
 
     render () {
-        const {poster_path: posterPath,  title, vote_average: voteAverage} = this.props; // eslint-disable-line
+        const {id, poster_path: posterPath,  title, vote_average: voteAverage} = this.props; // eslint-disable-line
         const poster = posterPath ?
             <img alt = 'poster' src = { `https://image.tmdb.org/t/p/w500/${posterPath}` } />
             : <img alt = 'poster' src = { `'../../theme/assets/no-cover.png'` } />;
@@ -57,11 +56,11 @@ class Movie extends Component {
             <div className = { Styles.movie } >
                 { isAbleToRemove }
                 { isAbleToAdd }
-
-                {poster}
-                <span className = { Styles.vote } >{voteAverage}</span>
-                <p className = { Styles.title } >{title}</p>
-
+                <Link to = { `/${id}` } >
+                    {poster}
+                    <span className = { Styles.vote } >{voteAverage}</span>
+                    <p className = { Styles.title } >{title}</p>
+                </Link>
             </div>
         );
     }

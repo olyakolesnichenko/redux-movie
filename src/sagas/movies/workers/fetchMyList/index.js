@@ -12,13 +12,14 @@ export function* fetchMyListWorker () {
         yield put(uiActions.startFetchingMovies());
         let movies = [];
         const response = localStorage.getItem('myMoviesList');
-
+console.log(response);
         if (response) {
             movies = JSON.parse(response);
+            console.log(movies);
         } else {
             localStorage.setItem('myMoviesList', JSON.stringify([]));
         }
-
+        yield put(moviesActions.fetchMoviesSuccess(movies));
         yield put(moviesActions.fetchMyListSuccess(movies));
 
     } catch ({ message }) {
@@ -32,10 +33,9 @@ export function* fetchMyListWorker () {
 const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
     movies:         movies.toJS(),
-    isExist:        movies.get('isExist'),
     isMyList:       movies.get('isMyList'),
-    fetchFullMovie: movies.get('fetchFullMovie'),
-    fetchMyList:    movies.get('fetchMyList'),
+    fullMovie:      movies.get('fetchFullMovie'),
+    myMoviesList:   movies.get('fetchMyList'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

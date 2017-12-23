@@ -8,6 +8,7 @@ const initialState = Map({
     data:        [],
     fullMovie:   {},
     inMyListIds: [],
+    fetchMyList: [],
     isMyList:    false,
 });
 
@@ -17,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
             return state.merge({ data: payload });
         }
         case types.FETCH_MY_LIST_SUCCESS: {
-            return state.merge({ data: payload });
+            return state.merge({ fetchMyList: payload });
         }
         case types.FETCH_FULL_MOVIE_SUCCESS: {
             return state.set({ fullMovie: payload });
