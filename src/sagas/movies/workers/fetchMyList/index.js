@@ -3,6 +3,8 @@ import { put } from 'redux-saga/effects';
 //Instruments
 import uiActions from 'actions/ui';
 import moviesActions from 'actions/movies';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 export function* fetchMyListWorker () {
 
@@ -27,3 +29,17 @@ export function* fetchMyListWorker () {
 
 
 }
+const mapStateToProps = ({ ui, movies }) => ({
+    moviesFetching: ui.get('moviesFetching'),
+    movies:         movies.toJS(),
+    isExist:        movies.get('isExist'),
+    isMyList:       movies.get('isMyList'),
+    fetchFullMovie: movies.get('fetchFullMovie'),
+    fetchMyList:    movies.get('fetchMyList'),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(moviesActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(fetchMyListWorker);

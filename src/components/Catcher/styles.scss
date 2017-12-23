@@ -13,4 +13,10 @@
         color: $paletteColor4;
         font-size: 24px;
     }
+
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }

@@ -2,40 +2,31 @@
 
 .navigation {
     display: flex;
-    position: absolute;
     top: 0;
     width: 100%;
     align-items: center;
     justify-content: center;
     height: 42px;
-    border-bottom: $paletteColor12;
-    background-color: $paletteColor6;
+    background-color: $bg-color;
 
     a, button {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 27px;
-        margin: 0 10px;
+        margin: 0 20px;
         padding: 2px 10px;
-        background-color: transparent;
-        color: $paletteColor2;
+        background-color: darken($paletteColor9, 5%);
+        border-radius: 10px;
+        color: #fff;
         font-size: 12px;
         font-weight: 400;
         text-decoration: none;
         white-space: nowrap;
         cursor: pointer;
 
-        img {
-            width: 24px;
-            height: 24px;
-            padding-right: 5px;
-            border: 1px solid $rgbaColor1;
-            border-radius: 50%;
-        }
-
         &:hover {
-            background: $rgbaColor2;
+            background: darken($paletteColor9, 20%);
         }
     }
 
@@ -46,6 +37,6 @@
     }
 
     .active {
-        background: $rgbaColor1;
+        background: darken($paletteColor9, 20%);
     }
 }

@@ -12,6 +12,8 @@ import Spinner from 'components/Spinner';
 import Navigation from 'components/Navigation';
 import Catcher from 'components/Catcher';
 
+import Styles from 'components/Movie/styles.scss';
+
 class Movies extends Component {
     static propTypes = {
         actions:        PropTypes.object.isRequired,
@@ -99,24 +101,28 @@ class Movies extends Component {
         console.log(myMoviesList);
         const moviesList = movies.map((movie) => {
             //const inList = myMoviesList.some((myMovie) => myMovie.id === movie.id);
-             const inList = false;
+            const inList = false;
 
             return (
-                <Movie key = { movie.id } { ...movie }
-                       getMovieInfo = { this.getMovieInfo }
-                       isExist = { isExist }
-                       isMyList = { isMyList }
-                       inList = { inList }
-                       addToMyList = { this.addToMyList }
-                       removeFromMyList = { this.removeFromMyList }
+                <Movie
+                    key = { movie.id } { ...movie }
+                    getMovieInfo = { this.getMovieInfo }
+                    isExist = { isExist }
+                    isMyList = { isMyList }
+                    inList = { inList }
+                    addToMyList = { this.addToMyList }
+                    removeFromMyList = { this.removeFromMyList }
                 />
             );
         });
+
         return (
             <Catcher>
-                <Spinner spin = { moviesFetching } />,
+                <Spinner spin = { moviesFetching } />
                 <Navigation />
-                { movies.length > 0 ? moviesList : <div> Loading... </div> }
+                <section className = { Styles.movieWrapper }  >
+                    { movies.length > 0 ? moviesList : <div> Loading... </div> }
+                </section>
             </Catcher>
         );
     }
@@ -127,8 +133,8 @@ const mapStateToProps = ({ ui, movies }) => ({
     movies:         movies.toJS(),
     isExist:        movies.get('isExist'),
     isMyList:       movies.get('isMyList'),
-    fullMovie:      movies.get('fetchFullMovie'),
-    myMoviesList:   movies.get('fetchMyList'),
+    fetchFullMovie: movies.get('fetchFullMovie'),
+    fetchMyList:    movies.get('fetchMyList'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

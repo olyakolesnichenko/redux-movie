@@ -2,7 +2,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
-import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
 
@@ -28,7 +27,7 @@ const logger = createLogger({
 const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [thunk, routerMiddleware(history)];
+const middleware = [routerMiddleware(history)];
 const composeEnhancers = dev && devtools ? devtools : compose;
 
 middleware.push(sagaMiddleware);
