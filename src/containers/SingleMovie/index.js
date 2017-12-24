@@ -24,9 +24,6 @@ class SingleMovie extends Component {
 
         this.props.actions.fetchFullMovie(id);
     }
-    componentWillUnmount () {
-
-    }
     render () {
         const {
             moviesFetching,

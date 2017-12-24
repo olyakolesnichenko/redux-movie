@@ -24,7 +24,7 @@ export default (state = initialState, { type, payload }) => {
             return state.merge({ fullMovie: payload });
         }
         case types.UPDATE_MY_LIST_IDS_SUCCESS: {
-            return state.set({ inMyListIds: payload });
+            return state.merge({ inMyListIds: payload });
         }
         case types.IS_MY_LIST_SUCCESS: {
             return state.merge({ isMyList: payload });

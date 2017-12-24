@@ -8,7 +8,7 @@ export function* isMyListWorker ({ payload: flag }) {
 
     try {
         if (flag === undefined) {
-            throw new Error('flag was  set');
+            throw new Error('flag wasn`t  set');
         }
         yield put(moviesActions.isMyListSuccess(flag));
 
@@ -17,6 +17,4 @@ export function* isMyListWorker ({ payload: flag }) {
     } finally {
         //yield put(uiActions.stopFetchingMovies());
     }
-
-
 }

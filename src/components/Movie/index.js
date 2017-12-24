@@ -7,20 +7,16 @@ import Styles from './styles.scss';
 
 export default class Movie extends Component {
     static propTypes = {
-        actions:          PropTypes.object.isRequired,
         addToMyList:      PropTypes.func.isRequired,
         deleteFromMyList: PropTypes.func.isRequired,
-        getMovieInfo:     PropTypes.func.isRequired,
         id:               PropTypes.number.isRequired,
         inList:           PropTypes.bool.isRequired,
         isMyList:         PropTypes.bool.isRequired,
-        moviesFetching:   PropTypes.bool.isRequired,
     };
     constructor () {
         super();
         this.addToMyList = ::this._addToMyList;
         this.deleteFromMyList = ::this._deleteFromMyList;
-        this.getMovieInfo = ::this._getMovieInfo;
         this.isAbleToAdd = ::this._isAbleToAdd;
         this.isAbleToRemove = ::this._isAbleToRemove;
     }
@@ -33,12 +29,6 @@ export default class Movie extends Component {
         const { deleteFromMyList, id } = this.props;
 
         deleteFromMyList(id);
-    }
-    _getMovieInfo (id) {
-        //const id = this.props.match.params;
-        console.log('_getMovieInfo', id);
-        this.props.actions.fetchFullMovie(id);
-
     }
     _isAbleToRemove () {
         const { isMyList } = this.props;

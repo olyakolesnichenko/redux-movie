@@ -19,7 +19,6 @@ export function* fetchFullMovieWorker ({ payload: id }) {
         }
         const movie = yield call([response, response.json]);
 
-        console.log('full movie worker', movie);
         yield put(moviesActions.fetchFullMovieSuccess(movie));
 
     } catch ({ message }) {

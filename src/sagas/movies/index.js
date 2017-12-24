@@ -11,7 +11,6 @@ import { deleteMovieWorker } from './workers/deleteMovie';
 import { fetchMyListWorker } from './workers/fetchMyList';
 import { updateMyListIdsWorker } from './workers/updateMyListIds';
 import { isMyListWorker } from './workers/isMyList';
-import { isExistWorker } from './workers/isExist';
 
 export default Object.freeze({
     * fetchMoviesWatcher () {
@@ -34,8 +33,5 @@ export default Object.freeze({
     },
     * isMyListWatcher () {
         yield takeEvery(types.IS_MY_LIST, isMyListWorker);
-    },
-    * isExistWatcher () {
-        yield takeEvery(types.IS_EXIST, isExistWorker);
     },
 });

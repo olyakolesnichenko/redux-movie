@@ -20,7 +20,4 @@ export default Object.freeze({
     IS_MY_LIST:                 'IS_MY_LIST',
     IS_MY_LIST_SUCCESS:         'IS_MY_LIST_SUCCESS',
     IS_MY_LIST_FAIL:            'IS_MY_LIST_FAIL',
-    IS_EXIST:                   'IS_EXIST',
-    IS_EXIST_SUCCESS:           'IS_EXIST_SUCCESS',
-    IS_EXIST_FAIL:              'IS_EXIST_FAIL',
 });

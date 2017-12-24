@@ -12,7 +12,6 @@ export function* saga () {
         movies.fetchMoviesWatcher(),
         movies.fetchMyListWatcher(),
         movies.updateMyListIdsWatcher(),
-        movies.isMyListWatcher(),
-        movies.isExistWatcher()
+        movies.isMyListWatcher()
     ]);
 }

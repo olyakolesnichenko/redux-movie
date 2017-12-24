@@ -13,12 +13,12 @@ export function* fetchMyListWorker () {
 
         if (response) {
             movies = JSON.parse(response);
-            console.log(movies);
         } else {
             localStorage.setItem('myMoviesList', JSON.stringify([]));
         }
-        yield put(moviesActions.fetchMoviesSuccess(movies));
+
         yield put(moviesActions.fetchMyListSuccess(movies));
+        yield put(moviesActions.fetchMoviesSuccess(movies));
 
     } catch ({ message }) {
         yield put(moviesActions.fetchMyListFail(message));

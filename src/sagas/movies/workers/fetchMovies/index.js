@@ -8,7 +8,6 @@ import { PATH, API_PATH } from 'instruments/api';
 export function* fetchMoviesWorker ({ payload: type = 'upcoming' }) {
     try {
         yield put(uiActions.startFetchingMovies());
-        console.log(type);
         const response = yield call(fetch, `${PATH}${type}${API_PATH}`, {
             method: 'GET',
         });

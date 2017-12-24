@@ -84,16 +84,4 @@ export default Object.freeze({
         type:    types.IS_MY_LIST_FAIL,
         payload: message,
     }),
-    isExist: (id) => ({
-        type:    types.IS_EXIST,
-        payload: id,
-    }),
-    isExistSuccess: (flag) => ({
-        type:    types.IS_EXIST_SUCCESS,
-        payload: flag,
-    }),
-    isExistFail: (message) => ({
-        type:    types.IS_EXIST_FAIL,
-        payload: message,
-    }),
 });

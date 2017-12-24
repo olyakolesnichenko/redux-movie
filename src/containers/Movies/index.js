@@ -79,8 +79,6 @@ class Movies extends Component {
             fetchMyList: { fetchMyList: myList },
         } = this.props;
 
-        console.log(myList);
-
         const moviesList = movies.map((movie) => {
             const inList = myList ? myList.some((myMovie) => myMovie.id === movie.id) : false;
 
@@ -89,7 +87,6 @@ class Movies extends Component {
                     addToMyList = { this.addToMyList }
                     deleteFromMyList = { this.deleteFromMyList }
                     key = { movie.id } { ...movie }
-                    getMovieInfo = { this.getMovieInfo }
                     id = { movie.id }
                     inList = { inList }
                     isMyList = { isMyList }

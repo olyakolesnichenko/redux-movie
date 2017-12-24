@@ -6,6 +6,7 @@ import moviesActions from 'actions/movies';
 
 export function* deleteMovieWorker ({ payload: id }) {
     try {
+        yield put(uiActions.startFetchingMovies());
         let movies = [];
         const myList = localStorage.getItem('myMoviesList');
 
@@ -14,22 +15,13 @@ export function* deleteMovieWorker ({ payload: id }) {
         }
         if (myList) {
             movies = JSON.parse(myList);
-            console.log('myList', myList);
-            console.log('movies', movies);
             const newList = movies.filter((movieItem) => movieItem.id !== id);
 
-            console.log('newList', newList);
-            localStorage.setItem('movies', JSON.stringify(newList));
-            console.log('----');
-
+            localStorage.setItem('myMoviesList', JSON.stringify(newList));
             const myListIds = newList.map((elem) => elem.id);
 
-            console.log('myListIds', myListIds);
-            yield put(moviesActions.updateMyListIdsSuccess(myListIds));
-
             yield put(moviesActions.deleteMovieSuccess(newList));
-            console.log('newList', newList);
-
+            yield put(moviesActions.updateMyListIdsSuccess(myListIds));
         }
     } catch ({ message }) {
         yield put(moviesActions.deleteMovieFail(message));
