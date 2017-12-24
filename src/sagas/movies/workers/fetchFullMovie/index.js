@@ -6,6 +6,7 @@ import moviesActions from 'actions/movies';
 import { PATH, KEY } from 'instruments/api';
 
 export function* fetchFullMovieWorker ({ payload: id }) {
+
     try {
         yield put(uiActions.startFetchingMovies());
 
@@ -17,7 +18,6 @@ export function* fetchFullMovieWorker ({ payload: id }) {
             throw new Error('Movie were not loaded.');
         }
         const movie = yield call([response, response.json]);
-
 
         console.log('full movie worker', movie);
         yield put(moviesActions.fetchFullMovieSuccess(movie));

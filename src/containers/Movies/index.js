@@ -17,23 +17,19 @@ import Styles from 'components/Movie/styles.scss';
 class Movies extends Component {
     static propTypes = {
         actions:        PropTypes.object.isRequired,
-        fullMovie:      PropTypes.object.isRequired,
+        fetchMyList:    PropTypes.object.isRequired,
         isMyList:       PropTypes.bool.isRequired,
         match:          PropTypes.object.isRequired,
         movies:         PropTypes.object.isRequired,
         moviesFetching: PropTypes.bool.isRequired,
-        fetchMyList:    PropTypes.object.isRequired,
     };
     constructor () {
         super();
         this.addToMyList = ::this._addToMyList;
         this.getMovies = ::this._getMovies;
-        this.getMovieInfo = ::this._getMovieInfo;
-        this.removeFromMyList = ::this._removeFromMyList;
+        this.deleteFromMyList = ::this._deleteFromMyList;
         this.updateMyListIds = ::this._updateMyListIds;
         this.addToMyList = ::this._addToMyList;
-        this.getMovieInfo = ::this._getMovieInfo;
-        this.removeFromMyList = ::this._removeFromMyList;
     }
     componentWillMount () {
         const type = this.props.match.params.filter;
@@ -52,12 +48,6 @@ class Movies extends Component {
             this.getMovies(filter);
         }
     }
-    _getMovieInfo () {
-        const id = this.props.match.params.filter;
-
-        this.props.actions.fetchFullMovie(id);
-
-    }
     _getMovies (type) {
         if (type === 'my-list') {
             this.props.actions.fetchMyList();
@@ -71,25 +61,12 @@ class Movies extends Component {
         }
 
     }
-    _removeFromMyList (id) {
+    _deleteFromMyList (id) {
         this.props.actions.deleteMovie(id);
-        this.props.actions.updateMyListIds();
     }
     _addToMyList (id) {
-        //this.props.actions.addMovie(id);
-        this.props.actions.fetchFullMovie(id);
-      //  const { fullMovie } = this.props;
+        this.props.actions.addMovie(id);
 
-        // const { id, isExist, fullMovie } = this.props;
-        // //this.props.actions.isExist(id);
-        //
-        // if (!isExist) {
-        //     this.props.actions.fetchFullMovie(id);
-        //     if (fullMovie) {
-        //         this.props.actions.addMovie(fullMovie);
-        //         this.props.actions.updateMyListIds();
-        //     }
-        // }
     }
     _updateMyListIds () {
         this.props.actions.updateMyListIds();
@@ -101,6 +78,7 @@ class Movies extends Component {
             movies: { data: movies },
             fetchMyList: { fetchMyList: myList },
         } = this.props;
+
         console.log(myList);
 
         const moviesList = movies.map((movie) => {
@@ -109,12 +87,12 @@ class Movies extends Component {
             return (
                 <Movie
                     addToMyList = { this.addToMyList }
+                    deleteFromMyList = { this.deleteFromMyList }
                     key = { movie.id } { ...movie }
                     getMovieInfo = { this.getMovieInfo }
                     id = { movie.id }
                     inList = { inList }
                     isMyList = { isMyList }
-                    removeFromMyList = { this.removeFromMyList }
                 />
             );
         });
@@ -123,7 +101,7 @@ class Movies extends Component {
             <Catcher>
                 <Spinner spin = { moviesFetching } />
                 <Navigation />
-                <section className = { Styles.movieWrapper }  >
+                <section className = { Styles.movieWrapper } >
                     { movies.length > 0 ? moviesList : <div> Loading... </div> }
                 </section>
             </Catcher>
@@ -135,7 +113,6 @@ const mapStateToProps = ({ ui, movies }) => ({
     moviesFetching: ui.get('moviesFetching'),
     movies:         movies.toJS(),
     isMyList:       movies.get('isMyList'),
-    fullMovie:      movies.get('fetchFullMovie'),
     fetchMyList:    movies.toJS(),
 });
 

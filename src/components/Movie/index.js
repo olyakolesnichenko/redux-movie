@@ -2,34 +2,49 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// Instruments
-import moviesActions from 'actions/movies';
 // Instruments
 import Styles from './styles.scss';
 
-class Movie extends Component {
+export default class Movie extends Component {
     static propTypes = {
         actions:          PropTypes.object.isRequired,
         addToMyList:      PropTypes.func.isRequired,
+        deleteFromMyList: PropTypes.func.isRequired,
         getMovieInfo:     PropTypes.func.isRequired,
+        id:               PropTypes.number.isRequired,
         inList:           PropTypes.bool.isRequired,
         isMyList:         PropTypes.bool.isRequired,
         moviesFetching:   PropTypes.bool.isRequired,
-        removeFromMyList: PropTypes.func.isRequired,
     };
     constructor () {
         super();
+        this.addToMyList = ::this._addToMyList;
+        this.deleteFromMyList = ::this._deleteFromMyList;
+        this.getMovieInfo = ::this._getMovieInfo;
         this.isAbleToAdd = ::this._isAbleToAdd;
         this.isAbleToRemove = ::this._isAbleToRemove;
+    }
+    _addToMyList () {
+        const { addToMyList, id } = this.props;
+
+        addToMyList(id);
+    }
+    _deleteFromMyList () {
+        const { deleteFromMyList, id } = this.props;
+
+        deleteFromMyList(id);
+    }
+    _getMovieInfo (id) {
+        //const id = this.props.match.params;
+        console.log('_getMovieInfo', id);
+        this.props.actions.fetchFullMovie(id);
+
     }
     _isAbleToRemove () {
         const { isMyList } = this.props;
 
         return isMyList ? (
-            <span className = { Styles.cross } onClick = { this.removeFromMyList } />
+            <span className = { Styles.cross } onClick = { this.deleteFromMyList } />
         ) : null;
     }
     _isAbleToAdd () {
@@ -39,7 +54,7 @@ class Movie extends Component {
             <span
                 className = { Styles.heart } onClick = { this.addToMyList }
             /> : !isMyList && inList ? <span
-                className = { Styles.heartRed } onClick = { this.removeFromMyList }
+                className = { Styles.heartRed } onClick = { this.deleteFromMyList }
             /> : null;
     }
 
@@ -65,24 +80,3 @@ class Movie extends Component {
         );
     }
 }
-
-// Movie.propTypes = {
-//     overview:    string.isRequired,
-//     title:       string.isRequired,
-//     poster_path: string // eslint-disable-line
-// };
-
-
-const mapStateToProps = ({ ui, movies }) => ({
-    fullMovie:      movies.get('fetchFullMovie'),
-    moviesFetching: ui.get('moviesFetching'),
-    movies:         movies.toJS(),
-    isExist:        movies.get('isExist'),
-    isMyList:       movies.get('isMyList'),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(moviesActions, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Movie);

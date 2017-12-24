@@ -21,21 +21,19 @@ export default (state = initialState, { type, payload }) => {
             return state.merge({ fetchMyList: payload });
         }
         case types.FETCH_FULL_MOVIE_SUCCESS: {
-            return state.set({ fullMovie: payload });
+            return state.merge({ fullMovie: payload });
         }
         case types.UPDATE_MY_LIST_IDS_SUCCESS: {
-            return state.merge({ inMyListIds: payload });
+            return state.set({ inMyListIds: payload });
         }
         case types.IS_MY_LIST_SUCCESS: {
             return state.merge({ isMyList: payload });
         }
         case types.ADD_MOVIE_SUCCESS: {
-            return state; ////????
+            return state.merge({ fetchMyList: payload });
         }
         case types.DELETE_MOVIE_SUCCESS: {
-            const newList = state.isMyList ? payload : state.data;
-
-            return state.merge({ data: newList }); ///??????
+            return state.merge({ fetchMyList: payload });
         }
         default:
             return state;

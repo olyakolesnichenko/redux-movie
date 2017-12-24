@@ -6,22 +6,31 @@ import moviesActions from 'actions/movies';
 
 export function* deleteMovieWorker ({ payload: id }) {
     try {
-        yield put(uiActions.startFetchingMovies());
+        let movies = [];
+        const myList = localStorage.getItem('myMoviesList');
 
-        const response = localStorage.getItem('myMoviesList');
-
-        if (!response) {
-
-            throw new Error('movies not found');
+        if (!id) {
+            throw new Error('id not found');
         }
-        const movies = JSON.parse(response);
-        const newList = movies.filter((movieItem) => movieItem.id !== id);
+        if (myList) {
+            movies = JSON.parse(myList);
+            console.log('myList', myList);
+            console.log('movies', movies);
+            const newList = movies.filter((movieItem) => movieItem.id !== id);
 
-        localStorage.setItem('movies', JSON.stringify(newList));
+            console.log('newList', newList);
+            localStorage.setItem('movies', JSON.stringify(newList));
+            console.log('----');
 
-        yield put(moviesActions.deleteMovieSuccess(newList));
+            const myListIds = newList.map((elem) => elem.id);
 
+            console.log('myListIds', myListIds);
+            yield put(moviesActions.updateMyListIdsSuccess(myListIds));
 
+            yield put(moviesActions.deleteMovieSuccess(newList));
+            console.log('newList', newList);
+
+        }
     } catch ({ message }) {
         yield put(moviesActions.deleteMovieFail(message));
     } finally {
