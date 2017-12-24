@@ -2,63 +2,42 @@
 import { put, call } from 'redux-saga/effects';
 import { actions } from 'react-redux-form';
 
-import authTypes from 'actions/auth/types';
+import moviesTypes from 'actions/movies/types';
 import uiTypes from 'actions/ui/types';
-import profileTypes from 'actions/profile/types';
 //Instruments
-import { loginWorker } from "./";
-import { api } from 'instruments/api';
+import { fetchFullMovieWorker } from "./";
+import { PATH, KEY } from 'instruments/api';
 
-const loginActions = {
-    type:  authTypes.LOGIN,
+const id = 346364;
+const movie = { 'id': 346364, 'title': 'It' };
+const moviesActions = {
+    type:  moviesTypes.FETCH_FULL_MOVIE,
     payload: {
-        email:    'test@mail.com',
-        password: 1111
-    }
+        id: 346364,
+    },
 };
-const profile = {
-    firstName: 'Jack',
-    lastName:  'White',
-    token:     'secret'
-};
-const saga = loginWorker(loginActions);
+const saga = fetchFullMovieWorker(moviesActions);
 const responseData = {
-    data:    profile,
-    message: 'successfull response'
+    data:    movie,
+    message: 'successfull response',
 };
 const fetchResponse = {
     status: 200,
-    json:   () => Promise.resolve(responseData)
+    json:   () => Promise.resolve(responseData),
 };
-
 global.fetch = jest.fn(() => Promise.resolve(fetchResponse));
-global.localStorage = (() => {
-
-    const storage = {};
-
-    return {
-        setItem:    jest.fn((key, value) => storage[key] = value),
-        getItem:    jest.fn((key) => storage[key]),
-        removeItem: jest.fn((key) => delete storage[key])
-    };
-
-})();
-describe('login saga success:', () => {
-    test(`should dispatch 'START_FETCHING_AUTH' action `, () => {
+describe('fetch full movie saga success:', () => {
+    test(`should dispatch 'FETCH_FULL_MOVIE' action `, () => {
         expect(saga.next().value).toEqual(
             put({
-                type: uiTypes.START_FETCHING_AUTH
+                type: uiTypes.START_FETCHING_MOVIES
             })
         );
     });
     test(`should call a 'fetch' request `, () => {
         expect(saga.next().value).toEqual(
-            call(fetch, `${api}/user/login`, {
-                method:  'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginActions.payload)
+            call(fetch, `${PATH}${id}?api_key=${KEY}&language=en-US`, {
+                method:  'GET',
             })
         );
     });
@@ -67,49 +46,18 @@ describe('login saga success:', () => {
             call([fetchResponse, fetchResponse.json])
         );
     });
-    test(`should dispatch 'LOGIN_SUCCESS' action`, () => {
+    test(`should dispatch 'FETCH_FULL_MOVIE_SUCCESS' action`, () => {
         expect(saga.next(responseData).value).toEqual(
             put({
-                type: authTypes.LOGIN_SUCCESS
+                type: moviesTypes.FETCH_FULL_MOVIE_SUCCESS,
+                payload: responseData
             })
         );
     });
-    test(`should dispatch 'FILL_USER_PROFILE' action`, () => {
+    test(`should dispatch 'FETCH_FULL_MOVIE_SUCCESS' action`, () => {
         expect(saga.next().value).toEqual(
             put({
-                type:    profileTypes.FILL_USER_PROFILE,
-                payload: profile
-            })
-        );
-    });
-    test(`should dispatch 'react-form-redux' 'CHANGE' action for firstName`, () => {
-        expect(saga.next().value).toEqual(
-            put(actions.change(
-                'forms.user.profile.firstName',
-                profile.firstName
-            ))
-        );
-    });
-    test(`should dispatch 'react-form-redux' 'CHANGE' action for lastName`, () => {
-        expect(saga.next().value).toEqual(
-            put({
-                type:     'rrf/change',
-                value:    profile.lastName,
-                external: true,
-                model:    'forms.user.profile.lastName',
-                multi:    false,
-                silent:   false
-            })
-        );
-    });
-    test(`should dispatch 'react-form-redux' 'RESET' action`, () => {
-        expect(saga.next().value).toEqual(put(actions.reset('forms.login')));
-    });
-
-    test(`should dispatch 'STOP_FETCHING_AUTH' action`, () => {
-        expect(saga.next().value).toEqual(
-            put({
-                type: uiTypes.STOP_FETCHING_AUTH
+                type: uiTypes.STOP_FETCHING_MOVIES
             })
         );
     });
