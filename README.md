@@ -1,4 +1,4 @@
-# Lectrum Redux intensive boilerplate
+
 
 ## In order to start a project follow these steps:
 
